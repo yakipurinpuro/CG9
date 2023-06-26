@@ -1,0 +1,139 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
+  </head>
+<body>
+ <h1>CG-report2</h1><br>
+ <h4>絵画の中の人物と目が合う「モナリザ効果」がビルボードと似ている点があると思い、モナリザを中心にCGを作成した。<br>
+   中央に配置しているモナリザ、および周りの星をビルボードでセット<br>モナリザの周りに球を作成、それぞれに火星、海王星、太陽のマッピングを施した。球には回転の操作を加えてある。</h4><br>
+ <script>
+      // ページの読み込みを待つ
+      window.addEventListener('DOMContentLoaded', init);
+
+      function init() {
+        // サイズを指定
+        const width = 900
+        const height = 700;
+
+        // レンダラーを作成
+        var renderer = new THREE.WebGLRenderer({
+          alpha: true,
+        });
+        document.body.appendChild(renderer.domElement);
+        renderer.setSize(width, height);
+        // 背景の色を設定
+        renderer.setClearColor(0x797979);
+
+
+        // シーンを作成
+        const scene = new THREE.Scene();
+
+        // カメラを作成
+        const camera = new THREE.PerspectiveCamera(45, width / height);
+        // カメラの初期座標を設定
+        camera.position.set(0, 0, 7);
+
+        // カメラコントローラーを作成
+        const controls = new THREE.OrbitControls(camera, document.body); 
+        
+        // 平行光源1
+        var directionalLight1 = new THREE.DirectionalLight(0xffffff);
+        directionalLight1.position.set(10, 10, 10);
+        // シーンに追加
+        scene.add(directionalLight1);
+        // 平行光源2
+        var directionalLight2 = new THREE.DirectionalLight(0x888888);
+        directionalLight2.position.set(-10, -10, 10);
+        // シーンに追加
+        scene.add(directionalLight2);
+
+        // helper
+        const gridHelper = new THREE.GridHelper(2,10); // size, step
+        scene.add(gridHelper);
+        const axisHelper = new THREE.AxisHelper(2); //軸の長さ　X：赤、Y：緑、z：青
+        scene.add(axisHelper);
+
+        // モナリザ+星をスプライトで作成
+        var textureLoader = new THREE.TextureLoader();  
+        var texture1 = textureLoader.load("img/Mona_Lisa2.png");
+        var texture2 = textureLoader.load("img/star.png");
+        const material1 = new THREE.SpriteMaterial({ map: texture1,transparent: true});
+        const material2 = new THREE.SpriteMaterial({ map: texture2,});
+
+        // モナリザセット
+        const sprite1 = new THREE.Sprite(material1);
+        sprite1.scale.set(1,2,1);
+        sprite1.position.set(0,1,0); //位置を指定
+        scene.add(sprite1);
+
+        //星1セット
+        const sprite2 = new THREE.Sprite(material2);
+        sprite2.position.x = 1;
+        sprite2.position.y = 1;
+        sprite2.position.z = 0;
+        sprite2.scale.set(0.5,0.5,0.5);
+        scene.add(sprite2);　
+
+        //星2をセット
+        const sprite3 = new THREE.Sprite(material2);
+        sprite3.position.x = -1;
+        sprite3.position.y = 1;
+        sprite3.position.z = 0;
+        sprite3.scale.set(0.5,0.5,0.5);
+        scene.add(sprite3);
+
+        //テクスチャ読み込み
+        //太陽
+        var texture_sun = textureLoader.load("sunmapthumb.jpg");
+        var mat1 = new THREE.MeshPhongMaterial();
+        mat1.map = texture_sun;
+
+        //海王星
+        var texture_neptune = textureLoader.load("neptunemapthumb.jpg");
+        var mat2 = new THREE.MeshPhongMaterial();
+        mat2.map = texture_neptune;
+
+        //火星
+        var texture_mars = textureLoader.load("mars_thumbnail.jpg");
+        var mat3 = new THREE.MeshPhongMaterial();
+        mat3.map = texture_mars;
+
+        
+        //球を作成
+        var Geometry = new THREE.SphereGeometry(0.3,32,32);
+        var sphere1 = new THREE.Mesh(Geometry,mat1);
+        sphere1.position.set(1,2,0);
+        scene.add(sphere1);
+
+        var sphere2 = new THREE.Mesh(Geometry,mat2);
+        sphere2.position.set(-1,2,0);
+        scene.add(sphere2);
+
+        var sphere3 = new THREE.Mesh(Geometry,mat3);
+        sphere3.position.set(0,2,1);
+        scene.add(sphere3);
+        
+        update();
+
+        // 毎フレーム時に実行されるループイベントです
+        function update() {
+          // レンダリング
+          renderer.render(scene, camera);
+          requestAnimationFrame(update);
+
+          //球を回転させる
+          sphere1.rotation.x += 0.01;
+          sphere1.rotation.y += 0.01;
+
+          sphere2.rotation.x += 0.01;
+          sphere2.rotation.y += 0.01;
+
+          sphere3.rotation.x += 0.01;
+          sphere3.rotation.y += 0.01;
+
+        }
+      }
+    </script>
+</body>
