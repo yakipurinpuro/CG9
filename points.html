@@ -29,12 +29,12 @@
       // カメラを作成
       const camera = new THREE.PerspectiveCamera(45, width / height);
 
-      //テクスチャをロード
-      loader = new THREE.TextureLoader();
-      loader.load('nzw/textures.png',function(texture){
-        createPoints(texture);
-        render();
-      });
+      // //テクスチャをロード
+      // loader = new THREE.TextureLoader();
+      // loader.load('nzw/textures.png',function(texture){
+      //   createPoints(texture);
+      //   render();
+      // });
         
 //------------------------------------------------------------------------------
       // 星屑を作成します (カメラの動きをわかりやすくするため)
@@ -67,10 +67,10 @@
           size: 10,
           // 色
           color: 0xffffff,
-          //テクスチャの設定
-          vertexColors:true,
-          map:texture,
-          transparent:true,
+          // //テクスチャの設定
+          // vertexColors:true,
+          // map:texture,
+          // transparent:true,
         });
 
         // 物体を作成
