@@ -60,8 +60,7 @@
         var sphere = new THREE.Mesh(sphereGeometry,sphereMaterial);
         sphere.position.set(0,0,0);
         scene.add(sphere);
-
-
+        
         // 画像を読み込む
         const loadPic = new THREE.TextureLoader();
         const texture2 = loadPic.load('textures/firetex.png');
@@ -81,7 +80,6 @@
         scene.add(mesh);
       }
 //------------------------------------------------------------------------------
-      update();
       tick();
 
       // 毎フレーム時に実行されるループイベントです
@@ -98,8 +96,7 @@
 
         // レンダリング
         renderer.render(scene, camera);
-
-        requestAnimationFrame(update);
+        
         requestAnimationFrame(tick);
       }
     </script>
