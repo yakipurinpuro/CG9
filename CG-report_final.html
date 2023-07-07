@@ -30,8 +30,8 @@
       const camera = new THREE.PerspectiveCamera(90, width / height);
 
 //------------------------------------------------------------------------------
-      const sphereGeometry = new THREE.SphereGeometry(15,32,32);
-      const sphereMaterial = new THREE.MeshBasicMaterial({color: 0xffff00,wireframe :true});
+      const sphereGeometry = new THREE.SphereGeometry(100,32,32);
+      const sphereMaterial = new THREE.MeshBasicMaterial({color: 0xd2b48c,wireframe :true});
       const sphere = new THREE.Mesh(sphereGeometry,sphereMaterial);
       sphere.position.set(0,0,0);
       scene.add(sphere);
