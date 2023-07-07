@@ -61,7 +61,7 @@
         // マテリアルを作成
         const material = new THREE.PointsMaterial({
           // 一つ一つのサイズ
-          size: 30,
+          size: 5,
           // 色1
           color: 0xffff00,
           // //テクスチャの設定
@@ -77,15 +77,15 @@
 
       // 毎フレーム時に実行されるループイベントです
       function tick() {
-        // rot += 1;
+        rot += 1;
 
-        // // ラジアンに変換する
-        // const radian = (rot * Math.PI) / 180;
-        // // 角度に応じてカメラの位置を設定
-        // camera.position.x = 1000 * Math.sin(radian);
-        // camera.position.z = 1000 * Math.cos(radian);
-        // // 原点方向を見つめる
-        // camera.lookAt(new THREE.Vector3(0, 0, 0));
+        // ラジアンに変換する
+        const radian = (rot * Math.PI) / 180;
+        // 角度に応じてカメラの位置を設定
+        camera.position.x = 1000 * Math.sin(radian);
+        camera.position.z = 1000 * Math.cos(radian);
+        // 原点方向を見つめる
+        camera.lookAt(new THREE.Vector3(0, 0, 0));
 
         // レンダリング
         renderer.render(scene, camera);
