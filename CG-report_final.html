@@ -54,6 +54,14 @@
         const geometry = new THREE.BufferGeometry();
         geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
 
+       // 球を作成
+        var sphereGeometry = new THREE.SphereGeometry( 0.5, 32, 32);
+        var sphereMaterial = new THREE.MeshBasicMaterial( {color: 0xffff00,wireframe:true} );
+        var sphere = new THREE.Mesh(sphereGeometry,sphereMaterial);
+        sphere.position.set(0,0,0);
+        scene.add(sphere);
+
+
         // 画像を読み込む
         const loadPic = new THREE.TextureLoader();
         const texture2 = loadPic.load('textures/firetex.png');
@@ -73,6 +81,7 @@
         scene.add(mesh);
       }
 //------------------------------------------------------------------------------
+      update();
       tick();
 
       // 毎フレーム時に実行されるループイベントです
