@@ -37,7 +37,7 @@
       scene.add(sphere);
 
       const boxGeometry = new THREE.BoxGeometry(300,300,300);
-      const boxMaterial = new THREE.MeshPhongMaterial(color: 0x00ffff);
+      const boxMaterial = new THREE.MeshBasicMaterial({color: 0x00ffff});
       const box = new THREE.Mesh(boxGeometry,boxMaterial);
       box.position.set(0,0,0);
       scene.add(box);
@@ -103,9 +103,9 @@
         renderer.render(scene, camera);
         requestAnimationFrame(tick);
 
-          // 箱を回転させる
-          box.rotation.x += 0.01;
-          box.rotation.y += 0.01;
+          // // 箱を回転させる
+          // box.rotation.x += 0.01;
+          // box.rotation.y += 0.01;
       }
     </script>
   </head>
