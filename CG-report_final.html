@@ -35,6 +35,12 @@
       const sphere = new THREE.Mesh(sphereGeometry,sphereMaterial);
       sphere.position.set(0,0,0);
       scene.add(sphere);
+
+      const boxGeometry = new THREE.BoxGeometry(300,300,300);
+      const boxMaterial = new THREE.MeshPhongMaterial(color: 0x00ffff);
+      const box = new THREE.Mesh(boxGeometry,boxMaterial);
+      box.position.set(0,0,0);
+      scene.add(box);
       
       // 星屑を作成します (カメラの動きをわかりやすくするため)
       createPoints();
