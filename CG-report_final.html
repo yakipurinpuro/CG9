@@ -31,38 +31,46 @@
 
 //------------------------------------------------------------------------------
       // 星屑を作成します (カメラの動きをわかりやすくするため)
-      createParticles();
+      createPoints();
 
-      function createParticles() {
-        //ジオメトリ
-        const geometry = new THREE.Geometry();
+      function createPoints() {
+        // 頂点情報を格納する配列
+        const vertices = [];
 
-        //マテリアル
-        const material = new THREE.PointsMaterial({
-          size: 30,
-          transparent: true,
-          opacity: 0.6,
-          vertexColors: true,
-          sizeAttenuation: true,
-          color: 0x3EDBF0
-        });
+        // 配置する範囲
+        const SIZE = 3000;
+        // 配置する個数
+        const LENGTH = 1000;
 
-        const range  = 3000;
-        for(var i=0;i<5000;i++){
-          const particle = new THREE.Vector3(
-            Math.random()*range-range/2,
-            Math.random()*range-range/2,
-            Math.random()*range-range/2);
+        for (let i = 0; i < LENGTH; i++) {
+          const x = SIZE * (Math.random() - 0.5);
+          const y = SIZE * (Math.random() - 0.5);
+          const z = SIZE * (Math.random() - 0.5);
 
-          geometry.vertices.push(particle);
-
-          const color  = new THREE.Color(0xeffffc);
-          geometry.colors.push(color);
+          vertices.push(x, y, z);
         }
 
-        cloud = new THREE.Points(geometry,material);
-        cloud.name = "particles";
-        scene.add(cloud);
+        // 形状データを作成
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+
+        // 画像を読み込む
+        const loadPic = new THREE.TextureLoader();
+        const texture2 = loadPic.load('textures/firetex.png');
+        
+        // マテリアルを作成
+        const material = new THREE.PointsMaterial({
+          // 一つ一つのサイズ
+          size: 30,
+          // 色1
+          color: 0xffff00,
+          // //テクスチャの設定
+          map:texture2
+        });
+
+        // 物体を作成
+        const mesh = new THREE.Points(geometry, material);
+        scene.add(mesh);
       }
 //------------------------------------------------------------------------------
       tick();
